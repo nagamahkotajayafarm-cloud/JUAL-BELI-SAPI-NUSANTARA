@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050505">
+<meta name="description" content="NAGA MAHKOTA JAYA — platform video jual beli sapi Nusantara.">
+<title>NAGA MAHKOTA JAYA | Jual Beli Sapi Nusantara</title>
+<style>
+:root{
+ --bg:#050505;--panel:#0d0d0d;--panel2:#151515;--line:#292929;
+ --gold:#d8ad55;--gold2:#f3d58a;--text:#f7f3e9;--muted:#a2a2a2;
+ --green:#58d68d;--red:#ff6767;--max:520px
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#000;scroll-behavior:smooth}
+body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#000;color:var(--text)}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.app{width:100%;max-width:var(--max);min-height:100vh;margin:auto;background:var(--bg);position:relative;overflow:hidden}
+.topbar{
+ position:fixed;top:0;z-index:50;width:min(var(--max),100%);
+ height:64px;padding:0 14px;display:flex;align-items:center;justify-content:space-between;
+ background:linear-gradient(180deg,rgba(5,5,5,.98),rgba(5,5,5,.72),transparent);
+ backdrop-filter:blur(10px)
+}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{width:38px;height:38px;border:1px solid #8c6a2e;border-radius:12px;display:grid;place-items:center;
+ background:linear-gradient(145deg,#1d1a14,#090909);color:var(--gold2);font-weight:950;box-shadow:0 0 20px #000}
+.brand-title{font-size:11px;font-weight:900;letter-spacing:1.05px}.brand-sub{font-size:8px;color:#999;letter-spacing:1px;margin-top:3px}
+.top-actions{display:flex;gap:7px}.circle{width:38px;height:38px;border-radius:12px;border:1px solid var(--line);background:#111;color:#eee}
+.screen{padding-bottom:92px}
+.tabs{position:sticky;top:0;z-index:20;padding:72px 12px 10px;display:flex;gap:8px;overflow:auto;background:linear-gradient(#050505 70%,transparent)}
+.tabs::-webkit-scrollbar{display:none}.tab{white-space:nowrap;border:1px solid #292929;background:#101010;color:#999;border-radius:999px;padding:8px 13px;font-size:12px}
+.tab.active{background:linear-gradient(135deg,#f2d183,#a4772f);color:#090909;border-color:#d5aa57;font-weight:900}
+.feed{padding:0 10px}
+.card{
+ height:calc(100vh - 150px);min-height:570px;max-height:760px;margin:0 0 14px;
+ position:relative;overflow:hidden;border:1px solid #262626;border-radius:25px;background:#101010;
+ box-shadow:0 18px 55px rgba(0,0,0,.5)
+}
+.video{
+ position:absolute;inset:0;display:grid;place-items:center;
+ background:
+ radial-gradient(circle at 50% 35%,#3a3325 0,#1a1711 20%,#0c0b09 52%,#050505 100%)
+}
+.video::before{content:"VIDEO SAPI";font-size:12px;letter-spacing:5px;color:#b9934d;border:1px solid #70562b;padding:13px 16px;border-radius:10px;opacity:.6}
+.video::after{content:"▶";position:absolute;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;
+ color:#f4d78d;border:1px solid #9b7735;background:rgba(0,0,0,.35);font-size:19px;opacity:.8}
+.card:nth-child(2) .video{background:radial-gradient(circle at 45% 38%,#302c24,#11100e 48%,#050505 100%)}
+.card:nth-child(3) .video{background:radial-gradient(circle at 50% 42%,#2e3029,#11120f 48%,#050505 100%)}
+.mute{position:absolute;top:17px;right:17px;width:40px;height:40px;border-radius:50%;border:1px solid #3b3b3b;background:#090909aa;color:#ddd;z-index:2}
+.side{position:absolute;right:10px;bottom:170px;display:flex;flex-direction:column;gap:9px;z-index:3}
+.side button{width:48px;height:48px;border-radius:15px;border:1px solid #343434;background:#080808c9;color:#eee;font-size:18px}
+.side small{display:block;color:#aaa;font-size:8px;margin-top:2px}
+.info{
+ position:absolute;left:0;right:0;bottom:0;z-index:2;padding:105px 17px 16px;
+ background:linear-gradient(transparent,rgba(0,0,0,.72) 30%,rgba(0,0,0,.98) 75%)
+}
+.badge{display:inline-flex;padding:6px 9px;border-radius:7px;font-size:9px;font-weight:950;background:linear-gradient(135deg,#f4d58b,#a3752d);color:#090909}
+.badge.sold{background:#393939;color:#ddd}.badge.booked{background:#624d27;color:#f4d58b}
+.title{font-size:22px;margin:8px 0 4px;line-height:1.12}.price{font-size:20px;color:var(--gold2);font-weight:950}
+.meta{display:flex;gap:12px;color:#aaa;font-size:11px;margin:7px 0}.desc{font-size:12px;line-height:1.45;color:#c5c5c5;max-width:88%}
+.seller{display:flex;align-items:center;gap:8px;margin-top:12px}.avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;
+ background:linear-gradient(135deg,#f0cf83,#7a541f);color:#080808;font-weight:950}
+.seller b{font-size:11px}.seller small{font-size:9px;color:#888}.verified{color:#f1cf7e}
+.contact{margin-left:auto;border:0;border-radius:11px;padding:10px 12px;background:linear-gradient(135deg,#f2d183,#a3762e);color:#090909;font-size:10px;font-weight:950}
+.bottom{
+ position:fixed;bottom:0;z-index:60;width:min(var(--max),100%);height:78px;display:flex;justify-content:space-around;align-items:center;
+ border-top:1px solid #292929;background:rgba(7,7,7,.96);backdrop-filter:blur(16px);padding-bottom:env(safe-area-inset-bottom)
+}
+.nav{background:none;border:0;color:#777;font-size:10px;display:flex;flex-direction:column;align-items:center;gap:5px;min-width:55px}.nav span:first-child{font-size:19px}
+.nav.active{color:var(--gold2)}
+.add{width:52px!important;height:43px;border-radius:13px!important;background:linear-gradient(135deg,#f1d082,#9b6f2a)!important;color:#080808!important;font-size:27px!important;font-weight:900}
+.toast{position:fixed;z-index:100;left:50%;bottom:92px;transform:translateX(-50%) translateY(20px);opacity:0;
+ background:#171717;border:1px solid #393939;color:#eee;border-radius:12px;padding:11px 14px;font-size:12px;transition:.25s;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.modal{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.78);display:none;align-items:flex-end}
+.sheet{width:min(var(--max),100%);margin:auto;background:#111;border:1px solid #2c2c2c;border-radius:25px 25px 0 0;padding:20px 17px calc(20px + env(safe-area-inset-bottom));max-height:88vh;overflow:auto}
+.sheet-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.sheet h3{color:var(--gold2);font-size:18px}.close{background:#1b1b1b;border:1px solid #333;color:#aaa;border-radius:10px;width:35px;height:35px}
+.field{margin:9px 0}.field label{display:block;color:#999;font-size:10px;margin:0 0 5px}.field input,.field textarea,.field select{
+ width:100%;padding:12px 13px;background:#080808;border:1px solid #303030;border-radius:11px;color:#fff;outline:none
+}.field input:focus,.field textarea:focus,.field select:focus{border-color:#9b7735}
+.filebox{border:1px dashed #70562d;border-radius:13px;padding:18px;text-align:center;color:#aaa;font-size:11px}
+.filebox strong{display:block;color:var(--gold2);margin-bottom:5px}.publish{width:100%;border:0;border-radius:12px;padding:14px;margin-top:9px;background:linear-gradient(135deg,#f1d083,#9a6d29);color:#080808;font-weight:950}
+.searchbar{display:none;padding:68px 12px 8px;background:#050505}.searchbar input{width:100%;background:#111;border:1px solid #333;border-radius:13px;padding:12px;color:#fff}
+.searchbar.open{display:block}.searchbar.open + .tabs{padding-top:8px}
+@media(min-width:700px){body{background:radial-gradient(circle at 50% -10%,#211a0d,#000 45%)}.app{box-shadow:0 0 80px #000}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="topbar">
+ <div class="brand"><div class="logo">NM</div><div><div class="brand-title">NAGA MAHKOTA JAYA</div><div class="brand-sub">JUAL BELI SAPI NUSANTARA</div></div></div>
+ <div class="top-actions"><button class="circle" id="searchBtn" aria-label="Cari">⌕</button><button class="circle" onclick="showToast('Notifikasi akan tersedia saat akun aktif')">♧</button></div>
+</header>
+
+<div class="screen">
+ <div class="searchbar" id="searchbar"><input id="searchInput" placeholder="Cari sapi, jenis, atau lokasi..." oninput="filterCards()"></div>
+ <div class="tabs">
+  <button class="tab active" data-filter="all">Untuk Anda</button>
+  <button class="tab" data-filter="terbaru">Terbaru</button>
+  <button class="tab" data-filter="perah">Sapi Perah</button>
+  <button class="tab" data-filter="potong">Sapi Potong</button>
+  <button class="tab" data-filter="kurban">Kurban</button>
+ </div>
+
+ <main class="feed" id="feed">
+  <article class="card" data-type="perah" data-search="sapi perah fh super pasuruan">
+   <div class="video"><button class="mute" onclick="showToast('Suara video: aktif/nonaktif')">🔊</button></div>
+   <div class="side">
+    <button onclick="like(this)">♡<small>128</small></button><button onclick="showToast('Komentar dibuka')">💬<small>24</small></button><button onclick="showToast('Tautan dibagikan')">↗<small>Bagikan</small></button><button onclick="showToast('Sapi disimpan')">🔖<small>Simpan</small></button>
+   </div>
+   <div class="info">
+    <span class="badge">TERSEDIA</span><div class="title">Sapi Perah FH Super</div><div class="price">Rp 25.000.000</div>
+    <div class="meta"><span>📍 Pasuruan</span><span>🐄 FH</span></div>
+    <div class="desc">Sapi perah FH pilihan, terawat dan siap dilihat langsung. Detail dan kondisi dapat dikonfirmasi kepada penjual.</div>
+    <div class="seller"><div class="avatar">NM</div><div><b>NAGA MAHKOTA JAYA <span class="verified">✓</span></b><br><small>Peternakan & jual beli sapi</small></div><button class="contact" onclick="openDetail('Sapi Perah FH Super','Rp 25.000.000','TERSEDIA')">DETAIL</button></div>
+   </div>
+  </article>
+
+  <article class="card" data-type="potong" data-search="sapi simmental jantan potong jawa timur">
+   <div class="video"><button class="mute" onclick="showToast('Suara video: aktif/nonaktif')">🔊</button></div>
+   <div class="side">
+    <button onclick="like(this)">♡<small>96</small></button><button onclick="showToast('Komentar dibuka')">💬<small>18</small></button><button onclick="showToast('Tautan dibagikan')">↗<small>Bagikan</small></button><button onclick="showToast('Sapi disimpan')">🔖<small>Simpan</small></button>
+   </div>
+   <div class="info">
+    <span class="badge booked">TERBOOKING</span><div class="title">Sapi Simmental Jantan</div><div class="price">Rp 32.500.000</div>
+    <div class="meta"><span>📍 Jawa Timur</span><span>🐂 Simmental</span></div>
+    <div class="desc">Listing sapi jantan dengan informasi penjualan langsung dari peternak.</div>
+    <div class="seller"><div class="avatar">NM</div><div><b>Peternak Nusantara <span class="verified">✓</span></b><br><small>Penjual terverifikasi</small></div><button class="contact" onclick="openDetail('Sapi Simmental Jantan','Rp 32.500.000','TERBOOKING')">DETAIL</button></div>
+   </div>
+  </article>
+
+  <article class="card" data-type="kurban" data-search="sapi kurban limousin pasuruan">
+   <div class="video"><button class="mute" onclick="showToast('Suara video: aktif/nonaktif')">🔊</button></div>
+   <div class="side">
+    <button onclick="like(this)">♡<small>73</small></button><button onclick="showToast('Komentar dibuka')">💬<small>11</small></button><button onclick="showToast('Tautan dibagikan')">↗<small>Bagikan</small></button><button onclick="showToast('Sapi disimpan')">🔖<small>Simpan</small></button>
+   </div>
+   <div class="info">
+    <span class="badge sold">TERJUAL</span><div class="title">Sapi Kurban Limousin</div><div class="price">Rp 29.000.000</div>
+    <div class="meta"><span>📍 Pasuruan</span><span>🐄 Limousin</span></div>
+    <div class="desc">Contoh listing yang sudah terjual. Status dapat diperbarui oleh pemilik listing.</div>
+    <div class="seller"><div class="avatar">NM</div><div><b>NAGA MAHKOTA JAYA <span class="verified">✓</span></b><br><small>Peternakan & jual beli sapi</small></div><button class="contact" onclick="showToast('Listing sudah terjual')">INFO</button></div>
+   </div>
+  </article>
+ </main>
+</div>
+
+<nav class="bottom">
+ <button class="nav active"><span>⌂</span>Beranda</button>
+ <button class="nav" onclick="showToast('Fitur jelajah siap dikembangkan')"><span>⌕</span>Jelajah</button>
+ <button class="nav add" onclick="openUpload()">＋</button>
+ <button class="nav" onclick="showToast('Login diperlukan untuk menyimpan sapi')"><span>♡</span>Tersimpan</button>
+ <button class="nav" onclick="showToast('Halaman profil')"><span>◉</span>Profil</button>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<div class="modal" id="uploadModal" onclick="if(event.target===this)closeModal('uploadModal')">
+ <div class="sheet">
+  <div class="sheet-head"><h3>Upload Video Sapi</h3><button class="close" onclick="closeModal('uploadModal')">×</button></div>
+  <div class="filebox"><strong>🎥 Pilih video sapi</strong>Video vertikal lebih cocok untuk feed. <input id="videoFile" type="file" accept="video/*" style="margin-top:10px;width:100%"></div>
+  <div class="field"><label>Nama / judul sapi</label><input id="cowName" placeholder="Contoh: Sapi Perah FH Super"></div>
+  <div class="field"><label>Harga</label><input id="cowPrice" placeholder="Contoh: Rp 25.000.000"></div>
+  <div class="field"><label>Jenis / kategori</label><select id="cowType"><option value="perah">Sapi Perah</option><option value="potong">Sapi Potong</option><option value="kurban">Kurban</option><option value="lain">Lainnya</option></select></div>
+  <div class="field"><label>Lokasi</label><input id="cowLocation" placeholder="Contoh: Pasuruan, Jawa Timur"></div>
+  <div class="field"><label>Deskripsi</label><textarea id="cowDesc" rows="3" placeholder="Jelaskan kondisi dan informasi sapi..."></textarea></div>
+  <button class="publish" onclick="publish()">LANJUTKAN POSTING</button>
+ </div>
+</div>
+
+<div class="modal" id="detailModal" onclick="if(event.target===this)closeModal('detailModal')">
+ <div class="sheet">
+  <div class="sheet-head"><h3 id="detailTitle">Detail Sapi</h3><button class="close" onclick="closeModal('detailModal')">×</button></div>
+  <div style="border:1px solid #292929;border-radius:16px;padding:16px;background:#0a0a0a">
+   <div id="detailStatus" class="badge"></div><div id="detailPrice" style="font-size:23px;color:var(--gold2);font-weight:950;margin:10px 0"></div>
+   <p style="color:#aaa;font-size:12px;line-height:1.5">Hubungi penjual untuk mengecek kondisi, lokasi, ketersediaan, dan proses pembelian sapi.</p>
+  </div>
+  <button class="publish" onclick="contactSeller()">HUBUNGI PENJUAL VIA WHATSAPP</button>
+ </div>
+</div>
+
+<script>
+const toast=document.getElementById('toast');
+function showToast(msg){toast.textContent=msg;toast.classList.add('show');clearTimeout(window.tt);window.tt=setTimeout(()=>toast.classList.remove('show'),2200)}
+function openUpload(){document.getElementById('uploadModal').style.display='flex'}
+function closeModal(id){document.getElementById(id).style.display='none'}
+function like(btn){btn.style.color='#f3c86e';btn.firstChild.textContent='♥';showToast('Ditambahkan ke suka')}
+function openDetail(title,price,status){document.getElementById('detailTitle').textContent=title;document.getElementById('detailPrice').textContent=price;document.getElementById('detailStatus').textContent=status;document.getElementById('detailModal').style.display='flex'}
+function contactSeller(){window.open('https://wa.me/6282228629548?text=Halo%20NAGA%20MAHKOTA%20JAYA,%20saya%20tertarik%20dengan%20sapi%20yang%20ada%20di%20aplikasi.','_blank')}
+function publish(){
+ const name=document.getElementById('cowName').value.trim();
+ if(!name){showToast('Isi nama/judul sapi terlebih dahulu');return}
+ closeModal('uploadModal');showToast('Data posting disiapkan — perlu backend untuk benar-benar tersimpan')
+}
+document.getElementById('searchBtn').onclick=()=>{const s=document.getElementById('searchbar');s.classList.toggle('open');if(s.classList.contains('open'))document.getElementById('searchInput').focus()}
+function filterCards(){
+ const q=document.getElementById('searchInput').value.toLowerCase();
+ document.querySelectorAll('.card').forEach(c=>c.style.display=c.dataset.search.includes(q)?'':'none')
+}
+document.querySelectorAll('.tab').forEach(tab=>tab.addEventListener('click',()=>{
+ document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));tab.classList.add('active');
+ const f=tab.dataset.filter;
+ document.querySelectorAll('.card').forEach(c=>c.style.display=(f==='all'||f==='terbaru'||c.dataset.type===f)?'':'none')
+}))
+</script>
+</div>
+</body>
+</html>
