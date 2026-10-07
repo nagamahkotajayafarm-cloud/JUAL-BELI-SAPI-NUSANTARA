@@ -1,5 +1,56 @@
 <!doctype html>
 <html lang="id">
+ <body>
+  <div style="text-align:center;
+   padding:20px;">
+   <button onclick="loginGoogle()" style="
+    padding:14px 25px;
+    background:#d4af37;
+    color:#000;
+    border:none;
+    border-radius:10px;
+    font-weight:bold;
+    font-size:16px;
+    cursor:pointer;
+    ">
+    <script
+     src="https://cdn.jsdelivr.net/npm/@supabase
+     /supabase-js@2"></script>
+
+    <script>
+     cont SUPABASE_URL =
+      "https://sqmjwacjybwrxrngugdj.supabase.co/rest/v1/";
+     const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNxbWp3YWNqeWJ3cnhybmd1Z2RqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEzMTUyMzIsImV4cCI6MjEwNjg5MTIzMn0.w82aOybWiesbQhIEbeZ4S_VUOCTsTmQj8XdEtJlGD4g";
+
+     const supabaseClient =
+      windows.supabase.createClient(
+       SUPABASE_URL,
+       SUPABASE_KEY
+       );
+    </script>
+    LOGIN DENGAN GOOGLE
+   </button>
+  </div>
+  <script>
+   async function loginGoogle() {
+
+    cons { data, error }=
+     await
+      supabaseClient.auth.signInWithOAuth({
+       provider: "google",
+       option: {
+        redirectTo:
+         "https://nagamahkotajayafarm-cloud.github.io/jual-beli-sapi-nusantara/"
+   }
+      });
+
+    if (error) {
+     alert("Login Google gagal: " +
+           error.message);
+    }
+   }
+  </script>
+ </body>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
