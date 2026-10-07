@@ -51,9 +51,8 @@
   </div>
   <script>
    async function loginGoogle() {
-
-    cons { data, error }=
-     await
+    try {
+   cons { data, error }= await
       supabaseClient.auth.signInWithOAuth({
        provider: "google",
        option: {
@@ -63,9 +62,13 @@
       });
 
     if (error) {
-     alert("Login Google gagal: " +
+     alert("ERROR GOOGLE: " +
            error.message);
     }
+   } catch (err) {
+     alert("ERROR SISTEM: " +
+           err.message);
+   }
    }
   </script>
  </body>
